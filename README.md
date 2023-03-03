@@ -1,4 +1,4 @@
-# TD et TP IPI JVA350 Qualité logicielle
+# TD et TP IPI JVA320 - Application web Java (Servlet, Spring MVC, Thymeleaf)
 
 ## Pré-requis
 
