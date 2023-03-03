@@ -59,7 +59,7 @@ Configurer l'application pour s'en servir : dans ```main/resources/application.p
 
 ## Exécution
 
-lancer la classe Jva320Application
+lancer la classe com.ipi.jva320.Jva320Application
 - dans l'IDE
   - IntelliJ : l'ouvrir et cliquer sur la flèche verte sur sa gauche
   - Eclipse : clic droit > Run as application),
