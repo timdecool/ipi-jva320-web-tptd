@@ -23,10 +23,10 @@ public class SalarieController {
     @GetMapping("/{id}")
     public String getSalarie(@PathVariable Long id, ModelMap model) {
         SalarieAideADomicile salarie = salarieAideADomicileService.getSalarie(id);
-        model.put("sa", salarie);
         if(salarie == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ce salarié n'existe pas.");
         }
+        model.put("salarie", salarie);
         return "detail_Salarie";
     }
 
@@ -39,6 +39,13 @@ public class SalarieController {
     @PostMapping("/save")
     public String saveSalarie(@ModelAttribute("salarie") SalarieAideADomicile salarie) throws SalarieException {
         salarieAideADomicileService.creerSalarieAideADomicile(salarie);
+        return "redirect:/salaries/" + salarie.getId();
+    }
+
+    @PostMapping("/{id}")
+    public String updateSalarie(@PathVariable Long id, @ModelAttribute("salarie") SalarieAideADomicile salarie) throws SalarieException {
+        salarie.setId(id);
+        salarieAideADomicileService.updateSalarieAideADomicile(salarie);
         return "redirect:/salaries/" + salarie.getId();
     }
 }

@@ -35,8 +35,13 @@
 
     <h2>Détail du salarié</h2>
     
-    <form id="saveForm" action="http://localhost:8080/salaries/save" method="post" class="row" th:object="${salarie}">
-
+    <form
+            id="saveForm"
+            method="post"
+            class="row"
+            th:object="${salarie}"
+            th:action="'http://localhost:8080/salaries/' + ${salarie.id ?: 'save'}"
+    >
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="form-control-label" for="id">ID</label>
