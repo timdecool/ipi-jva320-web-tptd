@@ -4,6 +4,7 @@ import com.ipi.jva320.exception.SalarieException;
 import com.ipi.jva320.model.SalarieAideADomicile;
 import com.ipi.jva320.service.SalarieAideADomicileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,12 +20,21 @@ public class SalarieController {
     SalarieAideADomicileService salarieAideADomicileService;
 
     @GetMapping("")
-    public String getSalaries(ModelMap model) {
+    public String getSalaries(
+            ModelMap model,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "5") Integer size,
+            @RequestParam(value = "sortProperty", defaultValue = "id") String property,
+            @RequestParam(value = "sortDirection", defaultValue = "ASC") String direction
+    ) {
         List<SalarieAideADomicile> salaries;
 
-        salaries = salarieAideADomicileService.getSalaries();
+        salaries = salarieAideADomicileService.getSalaries(PageRequest.of(page, size)).getContent();
         model.put("salaries", salaries);
         model.put("numberOfEmployees", salarieAideADomicileService.countSalaries());
+        model.put("page", page);
+        model.put("size", size);
+
         return "list";
     }
 
