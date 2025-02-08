@@ -25,13 +25,27 @@ public class SalarieController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "5") Integer size,
             @RequestParam(value = "sortProperty", defaultValue = "id") String property,
-            @RequestParam(value = "sortDirection", defaultValue = "ASC") String direction
+            @RequestParam(value = "sortDirection", defaultValue = "ASC") String direction,
+            @RequestParam(value = "nom", defaultValue = "") String nom
     ) {
         List<SalarieAideADomicile> salaries;
+        Long numberOfEmployees;
 
-        salaries = salarieAideADomicileService.getSalaries(PageRequest.of(page, size)).getContent();
+        if(!nom.isEmpty()) {
+            salaries = salarieAideADomicileService.getSalaries(nom, PageRequest.of(page, size));
+            numberOfEmployees = (long) salarieAideADomicileService.getSalaries(nom).size();
+
+        } else {
+            salaries = salarieAideADomicileService.getSalaries(PageRequest.of(page, size)).getContent();
+            numberOfEmployees = salarieAideADomicileService.countSalaries();
+        }
+
+        if(salaries.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pas de salariés répondant à ces critères.");
+        }
+
+        model.put("numberOfEmployees", numberOfEmployees);
         model.put("salaries", salaries);
-        model.put("numberOfEmployees", salarieAideADomicileService.countSalaries());
         model.put("page", page);
         model.put("size", size);
 
