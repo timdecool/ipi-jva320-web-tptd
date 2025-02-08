@@ -66,4 +66,11 @@ public class SalarieController {
         salarieAideADomicileService.updateSalarieAideADomicile(salarie);
         return "redirect:/salaries/" + salarie.getId();
     }
+
+    @GetMapping("/{id}/delete")
+    public String deleteSalarie(@PathVariable Long id) throws SalarieException {
+        salarieAideADomicileService.deleteSalarieAideADomicile(id);
+        return "redirect:/salaries";
+    }
+
 }
