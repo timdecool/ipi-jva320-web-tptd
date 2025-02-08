@@ -1,1 +1,7 @@
-﻿<p th:text="${message}" class="error-message">NOT FOUND</p>
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{common :: head('Page indisponible')}"></head>
+
+<body>
+    <p th:text="${message}" class="error-message">NOT FOUND</p>
+</body>
