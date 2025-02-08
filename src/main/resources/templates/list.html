@@ -42,7 +42,16 @@
           <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
+
+        <tbody th:if="true">
+          <tr th:each="salarie: ${salaries}">
+            <th scope="row" th:text="${salarie.id}">1</th>
+            <td th:text="${salarie.nom}">Jeanne Dupond</td>
+            <td><a th:href="@{/salaries/{id}(id = ${salarie.id})}" href="/salaries/aide/2" class="btn btn-primary ember-view">Détail</a></td>
+          </tr>
+        </tbody>
+
+        <tbody th:if="false">
         <tr>
           <th scope="row">1</th>
           <td>Jeanne Dupond</td>
@@ -54,6 +63,7 @@
           <td><a href="/salaries/aide/3" class="btn btn-primary ember-view">Détail</a></td>
         </tr>
         </tbody>
+
       </table>
       <div class="row">
         <div class="col-lg-6"><p>Affichage des salariés 1 à 10 sur un total de <span>11</span></p>

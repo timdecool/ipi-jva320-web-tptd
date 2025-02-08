@@ -6,12 +6,10 @@ import com.ipi.jva320.service.SalarieAideADomicileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/salaries")
@@ -19,6 +17,16 @@ public class SalarieController {
 
     @Autowired
     SalarieAideADomicileService salarieAideADomicileService;
+
+    @GetMapping("")
+    public String getSalaries(ModelMap model) {
+        List<SalarieAideADomicile> salaries;
+
+        salaries = salarieAideADomicileService.getSalaries();
+        model.put("salaries", salaries);
+        model.put("numberOfEmployees", salarieAideADomicileService.countSalaries());
+        return "list";
+    }
 
     @GetMapping("/{id}")
     public String getSalarie(@PathVariable Long id, ModelMap model) {
